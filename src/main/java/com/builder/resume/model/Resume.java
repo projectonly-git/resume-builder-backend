@@ -8,7 +8,6 @@ import java.util.List;
 @Entity(name="resume")
 public class Resume {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer resumeid;
     private String date;
     private String templateid;
@@ -155,6 +154,28 @@ public class Resume {
     }
 
     public void setExperiences(List<Experience> experiences) {
+        this.experiences = experiences;
+    }
+
+    public Resume() {
+    }
+
+    public Resume(Integer resumeid, String date, String templateid, String username, String designation, String state, String city, Integer pincode, String emailId, String phonenumber, String linkedin, String github, User user, String skills, List<Education> educations, List<Experience> experiences) {
+        this.resumeid = resumeid;
+        this.date = date;
+        this.templateid = templateid;
+        this.username = username;
+        this.designation = designation;
+        this.state = state;
+        this.city = city;
+        this.pincode = pincode;
+        this.emailId = emailId;
+        this.phonenumber = phonenumber;
+        this.linkedin = linkedin;
+        this.github = github;
+        this.user = user;
+        this.skills = skills;
+        this.educations = educations;
         this.experiences = experiences;
     }
 }
