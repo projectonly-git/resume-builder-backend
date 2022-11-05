@@ -11,6 +11,7 @@ import com.builder.resume.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -154,5 +155,9 @@ public class UserService {
             return 403;
         }
         return 200;
+    }
+
+    public List<User> getAllUsers() {
+        return repo.findAll();
     }
 }

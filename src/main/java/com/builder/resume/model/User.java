@@ -12,7 +12,7 @@ public class User {
     private String emailid;
     private String password;
     private String username;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy="resumeid")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy="user")
     private List<Resume> resumelist;
 
     public String getEmailid() {
