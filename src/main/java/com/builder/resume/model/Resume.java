@@ -24,9 +24,9 @@ public class Resume {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private User user;
     private String skills;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy="eduid")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy="resume")
     private List<Education> educations;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy="xpid")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy="resume")
     private List<Experience> experiences;
 
     public User getUser() {
