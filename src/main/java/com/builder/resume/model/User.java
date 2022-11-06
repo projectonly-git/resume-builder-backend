@@ -8,11 +8,14 @@ import java.util.List;
 
 @Entity(name="users")
 public class User {
+	
     @Id
     private String emailid;
     private String password;
     private String username;
+    
     @OneToMany(fetch = FetchType.LAZY, mappedBy="user")
+    
     private List<Resume> resumelist;
 
     public String getEmailid() {
@@ -47,12 +50,11 @@ public class User {
         this.resumelist = resumelist;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "emailid='" + emailid + '\'' +
-                ", username='" + username + '\'' +
-                ", resumelist=" + resumelist +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "User [emailid=" + emailid + ", password=" + password + ", username=" + username + ", resumelist="
+				+ resumelist + "]";
+	}
+
+    
 }

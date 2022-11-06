@@ -14,11 +14,22 @@ public class Experience {
     private String starttime;
     private String endtime;
     private String workd; // description
+    
+    
+    
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Resume resume;
 
-    public Integer getXpid() {
+    public Resume getResume() {
+		return resume;
+	}
+
+	public void setResume(Resume resume) {
+		this.resume = resume;
+	}
+
+	public Integer getXpid() {
         return xpid;
     }
 

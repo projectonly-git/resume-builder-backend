@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ResumeRepo extends JpaRepository<Resume, Integer> {
+
+	Resume findByresumeid(Integer resumeid);
 }

@@ -11,7 +11,6 @@ import com.builder.resume.repository.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,8 +20,10 @@ public class UserService {
 
     @Autowired
     ResumeRepo resume_repo;
+    
     @Autowired
     EducationRepo edu_repo;
+    
     @Autowired
     ExperienceRepo exp_repo;
 
@@ -56,15 +57,15 @@ public class UserService {
     }
     public Resume findResumeById(Integer rid){
         try {
-            Optional<Resume> opres = resume_repo.findById(rid);
-            if(!opres.isEmpty())
-                return opres.get();
+            Resume opres = resume_repo.findByresumeid(rid);
+            if(opres != null)
+            	opres.setEducations(opres.getEducations());
+                return opres;
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             return null;
         }
-        return null;
     }
 
 
@@ -74,27 +75,37 @@ public class UserService {
             if(opres.isEmpty())
                 return 403;
             else{
-                Resume updated_resume = opres.get();
+
+            	Resume updated_resume =opres.get();
                 updated_resume.getEducations().add(education);
                 resume_repo.save(updated_resume);
+                education.setResume(updated_resume);
+                edu_repo.save(education) ;
+            	System.out.println(updated_resume.toString());
+                return 200;
             }
         } catch (Exception e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
             return 403;
         }
-        return 200;
+    	
+    	
+    	
+    	
     }
 
     public int addExperience(Integer rid, Experience experience) {
         try {
             Optional<Resume> opres = resume_repo.findById(rid);
-            if(!opres.isEmpty())
+            if(opres.isEmpty())
                 return 403;
             else{
                 Resume updated_resume = opres.get();
                 updated_resume.getExperiences().add(experience);
                 resume_repo.save(updated_resume);
+                experience.setResume(updated_resume);
+                exp_repo.save(experience);
             }
         } catch (Exception e) {
             // TODO Auto-generated catch block
@@ -103,15 +114,21 @@ public class UserService {
         }
         return 200;
     }
-
+    
+    
     public int addSkill(Integer rid, String skill) {
         try {
             Optional<Resume> opres = resume_repo.findById(rid);
-            if(!opres.isEmpty())
+            if(opres.isEmpty())
                 return 403;
             else{
                 Resume updated_resume = opres.get();
-                updated_resume.setSkills(updated_resume.getSkills()+skill+",");
+                if(updated_resume.getSkills() == null) {
+                	updated_resume.setSkills(skill+",");
+                }else {
+                	updated_resume.setSkills(updated_resume.getSkills()+skill+",");
+                }
+                
                 resume_repo.save(updated_resume);
             }
         } catch (Exception e) {
@@ -121,21 +138,21 @@ public class UserService {
         }
         return 200;
     }
-
+    
     public int removeEducation(Integer eid) {
         edu_repo.deleteById(eid);
         return 200;
     }
-
+    
     public int removeExperience(Integer xpid) {
         exp_repo.deleteById(xpid);
         return 200;
     }
-
+    
     public int removeSkill(Integer rid, String skill) {
         try {
             Optional<Resume> opres = resume_repo.findById(rid);
-            if(!opres.isEmpty())
+            if(opres.isEmpty())
                 return 403;
             else{
                 Resume updated_resume = opres.get();
@@ -156,8 +173,6 @@ public class UserService {
         }
         return 200;
     }
-
-    public List<User> getAllUsers() {
-        return repo.findAll();
-    }
+    
+    
 }
