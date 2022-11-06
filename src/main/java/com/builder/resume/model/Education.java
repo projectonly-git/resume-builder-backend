@@ -14,22 +14,11 @@ public class Education {
     private String startyear;
     private String endyear;
     private String marks;
-    
-    
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @JoinColumn(name = "resume_id")
     private Resume resume;
 
-    public Resume getResume() {
-		return resume;
-	}
-
-	public void setResume(Resume resume) {
-		this.resume = resume;
-	}
-
-	public Integer getEduid() {
+    public Integer getEduid() {
         return eduid;
     }
 

@@ -20,21 +20,13 @@ public class Resume {
     private String phonenumber;
     private String linkedin;
     private String github;
-    
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private User user;
-    
-    
-    
     private String skills;
-    
     @OneToMany(fetch = FetchType.LAZY, mappedBy="resume")
     private List<Education> educations;
-    
-    
-
-	@OneToMany(fetch = FetchType.LAZY, mappedBy="resume")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy="resume")
     private List<Experience> experiences;
 
     public User getUser() {
